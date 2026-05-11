@@ -7,7 +7,7 @@ import { resolveProjectsRoot } from '../config';
 import { saveState } from '../store';
 import type { PxState } from '../types';
 
-const MAIN_TEMPLATE = path.join(__dirname, '..', '..', 'mk', 'templates', 'main');
+const MAIN_TEMPLATE = path.join(__dirname, '..', '..', 'src', 'lib', 'templates', 'main');
 const COMMANDS_FILE = 'commands';
 
 function copyTemplateIfPresent(dest: string): void {
