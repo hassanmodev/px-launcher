@@ -1,0 +1,8 @@
+# One shell command per line. Run from project root after template copy (px mk).
+git init
+npm init -y
+npm i -D typescript tsx
+npm pkg set main=src/index.ts
+npm pkg set scripts.build=tsc
+npm pkg set scripts.dev="tsx watch src/index.ts"
+npm pkg set scripts.start="tsx src/index.ts"
