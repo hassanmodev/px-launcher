@@ -1,18 +1,22 @@
 import path from 'path';
 
-import { projectsRoot } from '../config';
-import { saveProjects } from '../store';
-import type { Project } from '../types';
+import { resolveProjectsRoot } from '../config';
+import { saveState } from '../store';
+import type { PxState } from '../types';
 
-export function addProject(projects: Project[], args: string[]): void {
+export function addProject(state: PxState, args: string[]): void {
+  const { projects } = state;
   const name = args[1] ? args[1] : path.basename(process.cwd());
+  const root = resolveProjectsRoot(state);
   let projPath: string;
   if (args[1]) {
-    if (!projectsRoot) {
-      console.log('Set PROJECTS_DIR to your projects folder, or run px add from inside the project (no name).');
+    if (!root) {
+      console.log(
+        'Set projects_dir (run px and pick 1 or 2), set PROJECTS_DIR, or run px add with no name from inside the project.',
+      );
       process.exit(1);
     }
-    projPath = path.join(projectsRoot, args[1]);
+    projPath = path.join(root, args[1]);
   } else {
     projPath = process.cwd();
   }
@@ -21,6 +25,6 @@ export function addProject(projects: Project[], args: string[]): void {
     return;
   }
   projects.push({ name, path: projPath });
-  saveProjects(projects);
+  saveState(state);
   console.log(`Added: ${name}  ->  ${projPath}`);
 }

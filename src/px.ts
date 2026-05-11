@@ -2,10 +2,10 @@
 
 import { interactiveMode } from './cli';
 import { dispatch } from './router';
-import { loadProjects } from './store';
+import { loadState } from './store';
 
 const args = process.argv.slice(2);
-const projects = loadProjects();
+const state = loadState();
 
-if (args.length === 0) interactiveMode(projects);
-else dispatch(projects, args);
+if (args.length === 0) void interactiveMode(state);
+else dispatch(state, args);

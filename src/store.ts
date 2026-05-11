@@ -1,15 +1,23 @@
 import fs from 'fs';
 import path from 'path';
 
-import type { Project } from './types';
+import type { Project, PxState } from './types';
 
-const PROJECTS_FILE = path.join(__dirname, '..', 'px-projects.json');
+const FILE = path.join(__dirname, '..', 'px-state.json');
 
-export function loadProjects(): Project[] {
-  if (!fs.existsSync(PROJECTS_FILE)) return [];
-  return JSON.parse(fs.readFileSync(PROJECTS_FILE, 'utf8')) as Project[];
+export function loadState(): PxState {
+  if (!fs.existsSync(FILE)) return { projectsDir: '', projects: [] };
+  try {
+    const o = JSON.parse(fs.readFileSync(FILE, 'utf8')) as Record<string, unknown>;
+    return {
+      projectsDir: String(o.projects_dir ?? ''),
+      projects: (Array.isArray(o.projects) ? o.projects : []) as Project[],
+    };
+  } catch {
+    return { projectsDir: '', projects: [] };
+  }
 }
 
-export function saveProjects(projects: Project[]): void {
-  fs.writeFileSync(PROJECTS_FILE, JSON.stringify(projects, null, 2));
+export function saveState(s: PxState): void {
+  fs.writeFileSync(FILE, JSON.stringify({ projects_dir: s.projectsDir, projects: s.projects }, null, 2));
 }

@@ -2,10 +2,11 @@ import fs from 'fs';
 import readline from 'readline';
 
 import { detectAndRunDev } from './actions';
+import { ensureProjectsDirInteractive } from './lib/ensure-projects-dir';
 import { findProject } from './match';
-import type { Project } from './types';
+import type { PxState } from './types';
 
-export function listProjects(projects: Project[]): void {
+export function listProjects(projects: PxState['projects']): void {
   if (projects.length === 0) {
     console.log('No projects. Use: px add [name]  |  px help');
     return;
@@ -16,7 +17,9 @@ export function listProjects(projects: Project[]): void {
   });
 }
 
-export function interactiveMode(projects: Project[]): void {
+export async function interactiveMode(state: PxState): Promise<void> {
+  if (!(await ensureProjectsDirInteractive(state))) return;
+  const { projects } = state;
   if (projects.length === 0) {
     console.log('No projects. Use: px add [name]  |  px help');
     return;
@@ -47,7 +50,7 @@ px - project launcher
   px help, px ?, px -h, px --help   show this help
   px                        interactive project list
   px ls                     list all projects
-  px add [name]             add project (cwd, or PROJECTS_DIR/name when name is given)
+  px add [name]             add project (cwd, or projects root/name when name is given)
   px mk <name>              create project with mk then add it
   px rm <name>              remove project
   px edit <name>            open project in Cursor

@@ -31,7 +31,7 @@ npm run build
 |----------------|---------|
 | `PROJECTS_DIR` | Root directory for named adds (`px add foo` → `PROJECTS_DIR/foo`) and for `px mk`. |
 
-Saved projects live in **`px-projects.json`** at the repo root (next to `package.json`).
+Saved projects live in **`px-state.json`** at the repo root (next to `package.json`).
 
 ## Commands
 

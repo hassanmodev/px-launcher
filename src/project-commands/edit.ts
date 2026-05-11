@@ -1,14 +1,14 @@
 import { openInCursor } from '../actions';
 import { findProject } from '../match';
-import type { Project } from '../types';
+import type { PxState } from '../types';
 
-export function editProject(projects: Project[], args: string[]): void {
+export function editProject(state: PxState, args: string[]): void {
   const name = args[1];
   if (!name) {
     console.log('Usage: px edit <name>');
     process.exit(1);
   }
-  const project = findProject(projects, name);
+  const project = findProject(state.projects, name);
   if (project) {
     console.log(`Opening ${project.name} in Cursor...`);
     openInCursor(project.path);

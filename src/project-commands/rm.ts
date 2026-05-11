@@ -1,7 +1,8 @@
-import { saveProjects } from '../store';
-import type { Project } from '../types';
+import { saveState } from '../store';
+import type { PxState } from '../types';
 
-export function rmProject(projects: Project[], args: string[]): void {
+export function rmProject(state: PxState, args: string[]): void {
+  const { projects } = state;
   const name = args[1];
   if (!name) {
     console.log('Usage: px rm <name>');
@@ -13,6 +14,6 @@ export function rmProject(projects: Project[], args: string[]): void {
     return;
   }
   const [removed] = projects.splice(idx, 1);
-  saveProjects(projects);
+  saveState(state);
   console.log(`Removed: ${removed.name}`);
 }
