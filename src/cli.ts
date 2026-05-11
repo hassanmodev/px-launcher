@@ -7,7 +7,7 @@ import type { Project } from './types';
 
 export function listProjects(projects: Project[]): void {
   if (projects.length === 0) {
-    console.log('No projects. Use: px add [name]');
+    console.log('No projects. Use: px add [name]  |  px help');
     return;
   }
   projects.forEach((p, i) => {
@@ -18,7 +18,7 @@ export function listProjects(projects: Project[]): void {
 
 export function interactiveMode(projects: Project[]): void {
   if (projects.length === 0) {
-    console.log('No projects. Use: px add [name]');
+    console.log('No projects. Use: px add [name]  |  px help');
     return;
   }
   console.log('');
@@ -44,6 +44,7 @@ export function printHelp(): void {
   console.log(`
 px - project launcher
 
+  px help, px ?, px -h, px --help   show this help
   px                        interactive project list
   px ls                     list all projects
   px add [name]             add project (cwd, or PROJECTS_DIR/name when name is given)

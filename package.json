@@ -5,14 +5,14 @@
   "license": "ISC",
   "author": "",
   "type": "commonjs",
-  "main": "px.js",
+  "main": "dist/px.js",
   "bin": {
-    "px": "px.js"
+    "px": "cli.js"
   },
   "scripts": {
     "build": "tsc",
     "prepare": "npm run build",
-    "start": "node px.js"
+    "start": "node cli.js"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",

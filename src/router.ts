@@ -12,7 +12,7 @@ const handlerEntries: [string[], Handler][] = [
   [['mk'], (p, a) => mkProject(p, a)],
   [['rm'], (p, a) => rmProject(p, a)],
   [['edit'], (p, a) => editProject(p, a)],
-  [['help', '--help', '-h'], () => printHelp()],
+  [['help', '--help', '-h', '?'], () => printHelp()],
 ];
 
 const handlers: Record<string, Handler> = {};
@@ -30,7 +30,7 @@ export function dispatch(projects: Project[], args: string[]): void {
 
   const project = findProject(projects, args[0]);
   if (!project) {
-    console.log(`Project "${args[0]}" not found. Use: px add [name]`);
+    console.log(`Project "${args[0]}" not found. Try: px help  |  px add [name]`);
     return;
   }
   if (args.length > 1) runInProject(project.path, args.slice(1).join(' '));

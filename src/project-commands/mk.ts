@@ -1,6 +1,7 @@
+import fs from 'fs';
 import path from 'path';
-import { spawnSync } from 'child_process';
 
+import { openInCursor } from '../actions';
 import { projectsRoot } from '../config';
 import { saveProjects } from '../store';
 import type { Project } from '../types';
@@ -12,11 +13,12 @@ export function mkProject(projects: Project[], args: string[]): void {
     process.exit(1);
   }
   if (!projectsRoot) {
-    console.log('Set PROJECTS_DIR to your projects folder (same path mk.cmd uses).');
+    console.log('Set PROJECTS_DIR to your projects folder, e.g. setx PROJECTS_DIR "D:\\Projects"');
     process.exit(1);
   }
-  spawnSync('mk', [name], { stdio: 'inherit', shell: true });
   const projPath = path.join(projectsRoot, name);
+  fs.mkdirSync(projPath, { recursive: true });
+  openInCursor(projPath);
   if (projects.find((p) => p.name.toLowerCase() === name.toLowerCase())) return;
   projects.push({ name, path: projPath });
   saveProjects(projects);
