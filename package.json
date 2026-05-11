@@ -1,0 +1,15 @@
+{
+  "name": "px",
+  "version": "1.0.0",
+  "description": "project launcher",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "px.js",
+  "bin": {
+    "px": "px.js"
+  },
+  "scripts": {
+    "start": "node px.js"
+  }
+}
