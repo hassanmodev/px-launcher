@@ -10,6 +10,12 @@
     "px": "px.js"
   },
   "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
     "start": "node px.js"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.2"
   }
 }

@@ -1,7 +1,8 @@
-const { findProject } = require('../match');
-const { openInCursor } = require('../actions');
+import { openInCursor } from '../actions';
+import { findProject } from '../match';
+import type { Project } from '../types';
 
-function editProject(projects, args) {
+export function editProject(projects: Project[], args: string[]): void {
   const name = args[1];
   if (!name) {
     console.log('Usage: px edit <name>');
@@ -15,5 +16,3 @@ function editProject(projects, args) {
     console.log(`Not found: "${name}"`);
   }
 }
-
-module.exports = editProject;

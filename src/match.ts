@@ -1,4 +1,6 @@
-function fuzzyMatch(query, str) {
+import type { Project } from './types';
+
+export function fuzzyMatch(query: string, str: string): boolean {
   query = query.toLowerCase();
   str = str.toLowerCase();
   if (str.includes(query)) return true;
@@ -9,10 +11,10 @@ function fuzzyMatch(query, str) {
   return qi === query.length;
 }
 
-function findProject(projects, name) {
-  const exact = projects.find(p => p.name.toLowerCase() === name.toLowerCase());
+export function findProject(projects: Project[], name: string): Project | null {
+  const exact = projects.find((p) => p.name.toLowerCase() === name.toLowerCase());
   if (exact) return exact;
-  const matches = projects.filter(p => fuzzyMatch(name, p.name));
+  const matches = projects.filter((p) => fuzzyMatch(name, p.name));
   if (matches.length === 1) return matches[0];
   if (matches.length > 1) {
     console.log(`Multiple matches for "${name}":`);
@@ -21,5 +23,3 @@ function findProject(projects, name) {
   }
   return null;
 }
-
-module.exports = { fuzzyMatch, findProject };

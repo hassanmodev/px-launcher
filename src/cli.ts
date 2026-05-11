@@ -1,9 +1,11 @@
-const fs = require('fs');
-const readline = require('readline');
-const { findProject } = require('./match');
-const { detectAndRunDev } = require('./actions');
+import fs from 'fs';
+import readline from 'readline';
 
-function listProjects(projects) {
+import { detectAndRunDev } from './actions';
+import { findProject } from './match';
+import type { Project } from './types';
+
+export function listProjects(projects: Project[]): void {
   if (projects.length === 0) {
     console.log('No projects. Use: px add [name]');
     return;
@@ -14,7 +16,7 @@ function listProjects(projects) {
   });
 }
 
-function interactiveMode(projects) {
+export function interactiveMode(projects: Project[]): void {
   if (projects.length === 0) {
     console.log('No projects. Use: px add [name]');
     return;
@@ -38,7 +40,7 @@ function interactiveMode(projects) {
   });
 }
 
-function printHelp() {
+export function printHelp(): void {
   console.log(`
 px - project launcher
 
@@ -52,5 +54,3 @@ px - project launcher
   px <name> <command>       run command in project directory
 `);
 }
-
-module.exports = { listProjects, interactiveMode, printHelp };

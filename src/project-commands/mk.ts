@@ -1,9 +1,11 @@
-const path = require('path');
-const { spawnSync } = require('child_process');
-const { projectsRoot } = require('../config');
-const { saveProjects } = require('../store');
+import path from 'path';
+import { spawnSync } from 'child_process';
 
-function mkProject(projects, args) {
+import { projectsRoot } from '../config';
+import { saveProjects } from '../store';
+import type { Project } from '../types';
+
+export function mkProject(projects: Project[], args: string[]): void {
   const name = args[1];
   if (!name) {
     console.log('Usage: px mk <name>');
@@ -15,10 +17,8 @@ function mkProject(projects, args) {
   }
   spawnSync('mk', [name], { stdio: 'inherit', shell: true });
   const projPath = path.join(projectsRoot, name);
-  if (projects.find(p => p.name.toLowerCase() === name.toLowerCase())) return;
+  if (projects.find((p) => p.name.toLowerCase() === name.toLowerCase())) return;
   projects.push({ name, path: projPath });
   saveProjects(projects);
   console.log(`Added: ${name}  ->  ${projPath}`);
 }
-
-module.exports = mkProject;
